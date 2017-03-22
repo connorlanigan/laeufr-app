@@ -1,0 +1,7 @@
+<App>
+  <Router ux:Name="router" />
+     <Navigator DefaultPath="login">
+         <LoginPage ux:Template="login" router="router" />
+          <DashboardPage ux:Template="dashboard" router="router" />
+     </Navigator>
+</App>

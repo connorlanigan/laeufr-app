@@ -1,0 +1,17 @@
+<Page ux:Class="DashboardPage">
+<JavaScript File="../js/login.js" />
+
+
+<Router ux:Dependency="router" />
+<Image File="../Assets/Background.png" Layer="Background" StretchMode="Fill" />
+
+<StackPanel Orientation ="Vertical">
+
+<Rectangle Fill ="Black" Height="100" Opacity="0.5" />
+
+
+</StackPanel>
+
+
+
+</Page>
