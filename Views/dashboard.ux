@@ -3,11 +3,36 @@
 
 
 <Router ux:Dependency="router" />
+
+
+
+<Rectangle Fill ="Black" Height="100" Opacity="0.5" Alignment ="Top" Layer ="Background">
+</Rectangle>
+
 <Image File="../Assets/Background.png" Layer="Background" StretchMode="Fill" />
 
-<StackPanel Orientation ="Vertical">
+  <StackPanel Orientation ="Vertical">
 
-<Rectangle Fill ="Black" Height="100" Opacity="0.5" />
+
+
+<Rectangle  Height="100" Opacity="1" Alignment ="Top">
+<StackPanel Orientation ="Vertical" Margin="20" Alignment="TopLeft" >
+<Text Color ="White" FontSize="10" Height ="10" TextAlignment="Center" Width ="100" >TOTAL DISTANCE</Text>
+<Text Color ="White" FontSize="30" TextAlignment="Center" >00000</Text>
+<Image File ="../Assets/ico_arrow_down.png" Width="16" />
+</StackPanel>
+
+
+<Image File ="../Assets/profile.png" Margin="10,10,10,10" />
+
+<StackPanel Orientation ="Vertical" Margin="20" Alignment="TopRight" >
+<Text Color ="White" FontSize="10" Height ="10" TextAlignment="Center"  Width ="100" >TOTAL DURATION</Text>
+<Text Color ="White" FontSize="30" TextAlignment="Center" >00000</Text>
+<Image File ="../Assets/ico_arrow_down.png" Width="16" />
+</StackPanel>
+</Rectangle>
+
+
 
 
 </StackPanel>
