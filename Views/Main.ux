@@ -4,7 +4,7 @@
          <LoginPage ux:Template="login" router="router" />
           <DashboardPage ux:Template="dashboard"  router="router" />
             <RunSettings ux:Template="runsettings" router="router" />
-
+              <Run ux:Template="run" router="router" />
 
           <DockPanel Alignment ="Bottom">
             <StatusBarBackground Dock="Top"/>

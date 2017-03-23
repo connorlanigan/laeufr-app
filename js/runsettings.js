@@ -4,6 +4,13 @@ var navigation_back = function()
 }
 
 
+var startrun = function()
+{
+      router.goto("run");
+}
+
+
 module.exports = {
-	navigation_back: navigation_back
+	navigation_back: navigation_back,
+  startrun : startrun
 };

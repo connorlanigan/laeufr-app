@@ -1,0 +1,30 @@
+<Page ux:Class="Run">
+<JavaScript File="../js/run.js" />
+<Router ux:Dependency="router" />
+<Image File="../Assets/Background.png" Layer="Background" StretchMode="Fill" />
+
+
+<StackPanel Margin ="10" Alignment ="Left">
+<Text Color="White" FontSize ="12" Value ="TOTAL DISTANCE"/>
+<Text Color="White" FontSize ="32" Alignment="Center" Value ="{distance_m}"/>
+</StackPanel>
+
+<StackPanel Margin ="10" Alignment ="Right">
+<Text Color="White" FontSize ="12" Value ="TOTAL DURATION "/>
+<Text Color="White" FontSize ="32" Alignment="Center" Value ="{totalSeconds}"/>
+</StackPanel>
+
+
+
+<Rectangle Height ="60" Fill ="#d53700" Alignment ="Bottom">
+  <Image File ="../Assets/run.png" Alignment="Left" Margin ="10"/>
+<Text Value ="Stop Running" FontSize ="28" Color ="White" TextAlignment="Center" Margin ="13"></Text>
+
+
+
+<Tapped>
+    <Callback Handler="{finishrun}" />
+</Tapped>
+</Rectangle>
+
+</Page>

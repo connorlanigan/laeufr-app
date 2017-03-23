@@ -1,15 +1,43 @@
-<Page ux:Class="RunSettings" Transition ="ToFront">
+<Page ux:Class="RunSettings">
 <JavaScript File="../js/runsettings.js" />
 <Router ux:Dependency="router" />
 <Image File="../Assets/Background.png" Layer="Background" StretchMode="Fill" />
 
 <StackPanel>
-<Rectangle Height ="60" Fill ="White" Dock ="Top">
-<Button Text ="Back" Alignment ="Left" Margin ="15">
+<Rectangle Height ="60" Fill ="Black" Dock ="Top">
+<Text Value ="Back" FontSize ="28" Color ="White" TextAlignment="Left" Margin ="13">
 <Clicked Handler ="{navigation_back}"></Clicked>
-</Button>
+</Text>
 </Rectangle>
+
+
+
+
+
+
+<Panel Margin ="50">
+<StackPanel>
+<StackPanel Orientation ="Horizontal" Alignment ="Left">
+<Switch Value ="true"></Switch> <Text Margin="10" Color ="White" FontSize="22" Value ="Share this run online"></Text>
 </StackPanel>
 
+<StackPanel Orientation ="Horizontal" Alignment ="Left">
+<Switch Value ="true"></Switch> <Text Margin="10" Color ="White" FontSize="22" Value ="Audio advice"></Text>
+</StackPanel>
+</StackPanel>
+</Panel>
+
+</StackPanel>
+
+
+
+<Rectangle Height ="60" Fill ="#00cc9e" Alignment ="Bottom">
+  <Image File ="../Assets/run.png" Alignment="Left" Margin ="10"/>
+<Text Value ="Start Running" FontSize ="28" Color ="White" TextAlignment="Center" Margin ="13">
+</Text>
+<Tapped>
+    <Callback Handler="{startrun}" />
+</Tapped>
+</Rectangle>
 
 </Page>
