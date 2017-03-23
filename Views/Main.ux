@@ -3,6 +3,8 @@
      <Navigator DefaultPath="login">
          <LoginPage ux:Template="login" router="router" />
           <DashboardPage ux:Template="dashboard"  router="router" />
+            <RunSettings ux:Template="runsettings" router="router" />
+
 
           <DockPanel Alignment ="Bottom">
             <StatusBarBackground Dock="Top"/>

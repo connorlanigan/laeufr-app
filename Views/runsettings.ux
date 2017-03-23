@@ -1,0 +1,15 @@
+<Page ux:Class="RunSettings" Transition ="ToFront">
+<JavaScript File="../js/runsettings.js" />
+<Router ux:Dependency="router" />
+<Image File="../Assets/Background.png" Layer="Background" StretchMode="Fill" />
+
+<StackPanel>
+<Rectangle Height ="60" Fill ="White" Dock ="Top">
+<Button Text ="Back" Alignment ="Left" Margin ="15">
+<Clicked Handler ="{navigation_back}"></Clicked>
+</Button>
+</Rectangle>
+</StackPanel>
+
+
+</Page>
