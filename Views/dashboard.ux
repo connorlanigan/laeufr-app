@@ -96,7 +96,7 @@
                           </Tapped>
                         </Image>
 
-                        <Image File ="../Assets/btn_casualrun.png" Margin="50,10,50,0">
+                        <Image File ="../Assets/btn_random.png" Margin="50,10,50,0">
                           <Tapped>
                               <Scale Factor="0.9" Duration="0.1" Easing="QuadraticInOut"/>
                           </Tapped>

@@ -5,7 +5,7 @@
 
 <StackPanel Orientation ="Vertical">
 
-<Image File="../Assets/logo_small.png" Width="100px" Margin="100,80,100,20">
+<Image File="../Assets/logo_small.png" Width="150" Margin="100,80,100,20">
   <Tapped>
     <Scale Factor="0.8" Duration="0.3" Easing="QuadraticInOut"/>
 </Tapped>
@@ -13,9 +13,9 @@
 
 
 
-<Text Alignment="Center" TextAlignment="Left" Color ="White" Height ="140" Margin ="40">
+<Text Alignment="Center" TextAlignment="Left" Color ="White" Height ="160" Margin ="40">
 
-Thanks for using laeufr ☺.
+Thanks for using laeufr ☺
 
 While using it you'll probably need an
 account to store all your runs and
@@ -26,7 +26,7 @@ signing in and create an account later..
 
 </Text>
 
-<Rectangle Fill="#003366"  Margin="40,10,40,10" Padding="10" Height="40px" CornerRadius="4">
+<Rectangle Fill="#003366"  Margin="40,10,40,10" Padding="10" Height="80px" CornerRadius="4">
   <Tapped>
     <Scale Factor="0.8" Duration="0.3" Easing="QuadraticInOut"/>
 </Tapped>
@@ -35,7 +35,7 @@ signing in and create an account later..
 
 </Rectangle>
 
-<Rectangle Fill="#3399ff"  Margin="40,10,40,10" Padding="10" Height="40px" CornerRadius="4">
+<Rectangle Fill="#3399ff"  Margin="40,10,40,10" Padding="10" Height="80px" CornerRadius="4">
   <Tapped>
     <Scale Factor="0.8" Duration="0.3" Easing="QuadraticInOut"/>
 </Tapped>
@@ -46,7 +46,7 @@ signing in and create an account later..
   </Clicked>
 </Rectangle>
 
-<Rectangle  Fill="White"  Margin="40,10,40,10" Padding="10" Height="40px" CornerRadius="4">
+<Rectangle  Fill="White"  Margin="40,10,40,10" Padding="10" Height="80px" CornerRadius="4">
   <Tapped>
     <Scale Factor="0.8" Duration="0.3" Easing="QuadraticInOut"/>
 </Tapped>
