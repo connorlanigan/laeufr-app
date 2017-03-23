@@ -1,42 +1,91 @@
-<Page ux:Class="DashboardPage">
-<JavaScript File="../js/login.js" />
-
-
+<Page ux:Class ="DashboardPage">
 <Router ux:Dependency="router" />
 
+    <Panel ux:Class="Tab" ClipToBounds="false" Margin="0,0,0,4" Background="#bdc3c7">
+        <string ux:Property="Text" />
+        <Text Value="{ReadProperty Text}" Color="#FFF" Alignment="Center" />
+    </Panel>
+
+    <Rectangle ux:Name="indicator" LayoutMaster="runningTab" Alignment="Bottom" Height="4" Color="#6c7a89">
+        <LayoutAnimation>
+            <Move RelativeTo="WorldPositionChange" X="1" Duration="0.4" Easing="BackIn"/>
+        </LayoutAnimation>
+    </Rectangle>
 
 
-<Rectangle Fill ="Black" Height="100" Opacity="0.5" Alignment ="Top" Layer ="Background">
-</Rectangle>
-
-<Image File="../Assets/Background.png" Layer="Background" StretchMode="Fill" />
-
-  <StackPanel Orientation ="Vertical">
+    <DockPanel>
+        <StatusBarBackground Dock="Top" />
+        <BottomBarBackground Dock="Bottom" />
 
 
+        <Grid Dock="Bottom" ColumnCount="3" Height="50" Background="#bdc3c7">
+            <Panel ux:Name="runningTab">
+                <Tab Text="Running">
+                    <Clicked>
+                        <Set navigation.Active="running" />
+                    </Clicked>
+                </Tab>
+            </Panel>
+            <Panel ux:Name="feedTab">
+                <Tab Text="Feed">
+                    <Clicked>
+                        <Set navigation.Active="feed" />
+                    </Clicked>
+                </Tab>
+            </Panel>
+            <Panel ux:Name="settingsTab">
+                <Tab Text="Settings">
+                    <Clicked>
+                        <Set navigation.Active="settings" />
+                    </Clicked>
+                </Tab>
+            </Panel>
+        </Grid>
 
-<Rectangle  Height="100" Opacity="1" Alignment ="Top">
-<StackPanel Orientation ="Vertical" Margin="20" Alignment="TopLeft" >
-<Text Color ="White" FontSize="10" Height ="10" TextAlignment="Center" Width ="100" >TOTAL DISTANCE</Text>
-<Text Color ="White" FontSize="30" TextAlignment="Center" >00000</Text>
-<Image File ="../Assets/ico_arrow_down.png" Width="16" />
-</StackPanel>
+        <PageControl ux:Name="navigation">
+            <Page ux:Name="running" Background="#eee">
+
+              <JavaScript File="../js/dashboard.js" />
 
 
-<Image File ="../Assets/profile.png" Margin="10,10,10,10" />
+                      <Rectangle Fill ="Black" Height="100" Opacity="0.5" Alignment ="Top" Layer ="Background">
+                      </Rectangle>
+                      <Image File="../Assets/Background.png" Layer="Background" StretchMode="Fill" />
 
-<StackPanel Orientation ="Vertical" Margin="20" Alignment="TopRight" >
-<Text Color ="White" FontSize="10" Height ="10" TextAlignment="Center"  Width ="100" >TOTAL DURATION</Text>
-<Text Color ="White" FontSize="30" TextAlignment="Center" >00000</Text>
-<Image File ="../Assets/ico_arrow_down.png" Width="16" />
-</StackPanel>
-</Rectangle>
+                      <StackPanel Orientation ="Vertical">
+                      <Rectangle  Height="100" Opacity="1" Alignment ="Top">
+                      <StackPanel Orientation ="Vertical" Margin="20" Alignment="TopLeft" >
+                      <Text Color ="White" FontSize="10" Height ="10" TextAlignment="Center" Width ="100" >TOTAL DISTANCE</Text>
+                      <Text Color ="White" FontSize="30" TextAlignment="Center" >00000</Text>
+                      <Image File ="../Assets/ico_arrow_down.png" Width="16" />
+                      </StackPanel>
+
+                      <Image File ="../Assets/profile.png" Margin="10,10,10,10" />
+                      <StackPanel Orientation ="Vertical" Margin="20" Alignment="TopRight" >
+                      <Text Color ="White" FontSize="10" Height ="10" TextAlignment="Center"  Width ="100" >TOTAL DURATION</Text>
+                      <Text Color ="White" FontSize="30" TextAlignment="Center" >00000</Text>
+                      <Image File ="../Assets/ico_arrow_down.png" Width="16" />
+                      </StackPanel>
+                      </Rectangle>
+                      </StackPanel>
 
 
 
+                      <WhileActive Threshold="0.5">
+                          <Set indicator.LayoutMaster="runningTab" />
+                      </WhileActive>
+            </Page>
+            <Page ux:Name="feed" Background="#abb7b7">
+              <WhileActive Threshold="0.5">
+                  <Set indicator.LayoutMaster="feedTab" />
+              </WhileActive>
+            </Page>
+            <Page ux:Name="settings" Background="#f2f1ef">
+              <WhileActive Threshold="0.5">
+                  <Set indicator.LayoutMaster="settingsTab" />
+              </WhileActive>
+            </Page>
+        </PageControl>
 
-</StackPanel>
-
-
-
+    </DockPanel>
 </Page>

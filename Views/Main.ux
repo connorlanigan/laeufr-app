@@ -2,6 +2,12 @@
   <Router ux:Name="router" />
      <Navigator DefaultPath="login">
          <LoginPage ux:Template="login" router="router" />
-          <DashboardPage ux:Template="dashboard" router="router" />
+          <DashboardPage ux:Template="dashboard"  router="router" />
+
+          <DockPanel Alignment ="Bottom">
+            <StatusBarBackground Dock="Top"/>
+            <BottomBarBackground Dock="Bottom"/>
+          </DockPanel>
+
      </Navigator>
 </App>
