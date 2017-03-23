@@ -4,8 +4,9 @@ var Timer = require("FuseJS/Timer");
 
 var lastcoordinates = {lat : 0.0, lon : 0.0};
 
-var distance_m = 0;
-var totalSeconds = 0;
+var distance_m = Observable(0);
+var totalSeconds = Observable(0);
+
 var run_active = true;
 
  // Immediate
@@ -20,10 +21,24 @@ var run_active = true;
 
  Timer.create(function() {
 
-   if(run_active)
-   totalSeconds += 1;
+   console.log(totalSeconds.value);
 
-}, 1000, false);
+   var parsedLocation = JSON.parse(immediateLocation);
+   lastcoordinates.lat = parsedLocation.latitude;
+   lastcoordinates.lon =  parsedLocation.longitude;
+
+   if(lastcoordinates.lat >0)
+   {
+   distance_m.value += calcCrow(lastcoordinates.lat, lastcoordinates.lon, parsedLocation.latitude, parsedLocation.longitude)*1000;
+   console.log("Distance: "+distance_m.value);
+   console.log("lat: "+lastcoordinates.lat);
+   console.log("lon: "+lastcoordinates.lon);
+    }
+
+
+   totalSeconds.value += 1;
+
+   }, 1000, true);
 
 
 
@@ -31,15 +46,7 @@ var run_active = true;
 
    console.log("Location updated");
 
-   if(lastcoordinates.lat >0)
-   {
 
-    distance_m +=calcCrow(lastcoordinates.lat, lastcoordinates.lon, immediateLocation.latitude, immediateLocation.longitude)*1000;
-   lastcoordinates.lat = immediateLocation.latitude;
-   lastcoordinates.lon =  immediateLocation.longitude;
-
-
-}
      timeoutLocation.value = JSON.stringify(location);
 
  }).catch(function(fail) {
@@ -55,11 +62,9 @@ var run_active = true;
      GeoLocation.startListening(intervalMs, desiredAccuracyInMeters);
  }
 
-
  function stopContinuousListener() {
      GeoLocation.stopListening();
  }
-
 
  var finishrun = function()
  {
@@ -69,7 +74,6 @@ var run_active = true;
  }
 
  startContinuousListener();
-
 
  //This function takes in latitude and longitude of two location and returns the distance between them as the crow flies (in km)
    function calcCrow(lat1, lon1, lat2, lon2)
@@ -100,7 +104,7 @@ var run_active = true;
      timeoutLocation: timeoutLocation,
      continuousLocation: continuousLocation,
      startContinuousListener: startContinuousListener,
-     totalSeconds : totalSeconds,
+     totalSeconds :  totalSeconds,
      stopContinuousListener: stopContinuousListener,
      finishrun: finishrun
  };

@@ -4,13 +4,13 @@
 <Image File="../Assets/Background.png" Layer="Background" StretchMode="Fill" />
 
 
-<StackPanel Margin ="10" Alignment ="Left">
-<Text Color="White" FontSize ="12" Value ="TOTAL DISTANCE"/>
+<StackPanel Margin ="30" Alignment ="Left">
+<Text Color="White" FontSize ="18" Value ="TOTAL DISTANCE"/>
 <Text Color="White" FontSize ="32" Alignment="Center" Value ="{distance_m}"/>
 </StackPanel>
 
-<StackPanel Margin ="10" Alignment ="Right">
-<Text Color="White" FontSize ="12" Value ="TOTAL DURATION "/>
+<StackPanel Margin ="30" Alignment ="Right">
+<Text Color="White" FontSize ="18" Value ="TOTAL DURATION "/>
 <Text Color="White" FontSize ="32" Alignment="Center" Value ="{totalSeconds}"/>
 </StackPanel>
 
