@@ -1,56 +1,70 @@
 var Observable = require("FuseJS/Observable");
 var GeoLocation = require("FuseJS/GeoLocation");
+var Storage = require("FuseJS/Storage");
 var Timer = require("FuseJS/Timer");
 var distance_m = Observable(0);
 var totalSeconds = Observable(0);
 var run_active = true;
 var lastLocation = {lat : 0.0, lon:0.0};
+
+
+//GUI-Observables
 var duration_value = Observable("0000");
 var distance_value = Observable("0000");
 var distance_type =Observable("METER");
 var duration_type = Observable("SECONDS");
-var FileSystem = require("FuseJS/FileSystem");
+var pace_value = Observable("0000");
+var kcal_value = Observable("0000");
 
+
+
+var FileSystem = require("FuseJS/FileSystem");
 var audioplayer = Observable(true);
 var audioplayer_file = Observable("Assets/sounds/start_your_run.wav");
+var start = new Date();
+var location_dots = [];
+ var immediateLocation = JSON.stringify(GeoLocation.location);
+ var timeoutLocation = Observable("");
+ var timeoutMs = 1000;
+ var continuousLocation = GeoLocation.observe("changed").map(JSON.stringify);
 
+
+//Generate a new GUID (used for run-ids)
+function guid() {
+  function s4() {
+    return Math.floor((1 + Math.random()) * 0x10000)
+      .toString(16)
+      .substring(1);
+  }
+  return s4() + s4() + '-' + s4() + '-' + s4() + '-' +
+    s4() + '-' + s4() + s4() + s4();
+}
+
+//ugly workaround to play sounds in fuse..
 function playSound(path)
 {
-
   audioplayer.value = true;
   audioplayer_file.value = path;
   audioplayer.value = false;
 }
 
-
-
-
-   // Immediate
- var immediateLocation = JSON.stringify(GeoLocation.location);
- var running_timer =   Timer.create(function() {
-
-
+//Running timer  - Ticks every second while the run is active
+var running_timer =   Timer.create(function() {
 
 if(run_active)
 totalSeconds.value += 1;
 
+var visual_seconds = secondsToTime(totalSeconds.value).s;
+var visual_minutes = secondsToTime(totalSeconds.value).m;
 
 if(totalSeconds.value < 60) //seconds
 {
-
-
-duration_value.value =   formatNum(totalSeconds.value,4);
+duration_value.value =   formatNum(visual_seconds,4);
 duration_type.value ="SECONDS";
 }
 else if(totalSeconds.value >= 60) //minutes
 {
-
-
-var seconds = secondsToTime(totalSeconds.value).s;
-var minutes = secondsToTime(totalSeconds.value).m;
-
-
-duration_value.value = formatNum(minutes,2)+":"+formatNum(seconds,2);
+duration_value.value = formatNum(visual_minutes,2)+":"+formatNum(visual_seconds,2);
 duration_type.value =" MINUTES";
 }
 else //Hours
@@ -59,39 +73,25 @@ duration_value.value = totalSeconds.value/60;
 duration_type.value ="HOURS";
 }
 
-
+//Get GEO-Location
 GeoLocation.getLocation(3000).then(function(location) {
 
 if(lastLocation.lat > 0)
 {
   distance_m.value += (calcCrow(lastLocation.lat, lastLocation.lon, location.latitude, location.longitude)*1000);
-//  console.log(distance_m);
+  if(totalSeconds.value % 10 == 0)
+  location_dots.push({"timestamp" : totalSeconds.value, "lat" : location.latitude ,"lon" : location.longitude, "distance" : distance_m.value});
 }
 
 lastLocation.lat = location.latitude;
 lastLocation.lon = location.longitude;
-
-
-
-
-
      }).catch(function(fail) {
          console.log("getLocation fail " + fail);
      });
 
-
-   }, 1000,run_active);
-
+ }, 1000,run_active);
 
 
-
-   // Timeout
-   var timeoutLocation = Observable("");
-   var timeoutMs = 1000;
-
-
-   // Continuous
-   var continuousLocation = GeoLocation.observe("changed").map(JSON.stringify);
 
    function startContinuousListener() {
 
@@ -109,16 +109,28 @@ lastLocation.lon = location.longitude;
    }
 
 
+//Handles if the user has finished the run
  var finishrun = function()
  {
        stopContinuousListener();
        audioplayer.value = false;
        run_active = false;
 
+       var storageRuns = Storage.readSync("storage.json");
+       var storedRuns = [];
 
-       addRun({"distance" : distance_m.value, "totalseconds" : totalSeconds.value});
+        if(storageRuns != "")
+        storedRuns = JSON.parse(storageRuns);
+
+       storedRuns.push({"id" : guid(), "start" : start, "distance" : distance_m.value, "totalseconds" : totalSeconds.value, 'dots' : location_dots});
+       Storage.writeSync("storage.json", JSON.stringify(storedRuns));
+       console.log(JSON.stringify(storedRuns));
+
+
        router.goto("dashboard");
  }
+
+
 
  function secondsToTime(secs)
  {
@@ -165,11 +177,6 @@ lastLocation.lon = location.longitude;
    var runs = [];
 
 
-   function addRun(run)
-   {
-     runs.push(run);
-   }
-
    function formatNum(num,letters)
    {
     var missing_nums = letters-num.toString().length;
@@ -197,5 +204,7 @@ lastLocation.lon = location.longitude;
      distance_value : distance_value,
     duration_value : duration_value,
     audioplayer : audioplayer,
-    audioplayer_file : audioplayer_file
+    audioplayer_file : audioplayer_file,
+    pace_value: pace_value,
+    kcal_value : kcal_value
  };

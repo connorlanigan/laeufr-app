@@ -1,6 +1,6 @@
 <Page ux:Class ="DashboardPage">
 <Router ux:Dependency="router" />
-
+        <JavaScript File="../js/dashboard.js" />
 
 
 
@@ -58,7 +58,7 @@
         <PageControl ux:Name="navigation">
             <Page ux:Name="running" Background="#eee">
 
-              <JavaScript File="../js/dashboard.js" />
+
 
 
                       <Rectangle Fill ="Black" Height="100" Opacity="0.5" Alignment ="Top" Layer ="Background">
@@ -117,7 +117,41 @@
               </WhileActive>
 
               <DockPanel Padding="10" Margin="0,1" Background="#fff">
-                 <Text Value="No items yet :(" Alignment="Center" />
+
+                <ScrollView>
+               <StackPanel>
+                 <Button Text ="Delete History"><Clicked Handler="{delete_history}"/></Button>
+                   <Each Items="{storedRuns}">
+                       <DockPanel Padding="10" Margin="0,1" Background="#eaeaea">
+                       <StackPanel>
+                        <Text Value="Date /Time" Alignment="CenterLeft" Background="Black" Color ="White" Width="300"/>
+                          <Text Value="{start}" Alignment="CenterLeft" />
+                          <Text Value="Local ID" Alignment="CenterLeft" Background="Black" Color ="White" Width="300"/>
+                           <Text Value="{id}" Alignment="CenterLeft" />
+                            <Text Value="DISTANCE" Alignment="CenterLeft" Background="Black" Color ="White" Width="300"/>
+                           <Text Value="{distance} KM" Alignment="CenterLeft" />
+                           <Text Value="DURATION" Alignment="CenterLeft" Background="Black" Color ="White" Width="300"/>
+                          <Text Value="{totalseconds} Seconds" Alignment="CenterLeft" />
+                          <Text Value="DOTS" Alignment="CenterLeft" Background="Black" Color ="White" Width="300"/>
+                         <Text Value="{dots.length}" Alignment="CenterLeft" />
+                       </StackPanel>
+                           <LayoutAnimation>
+                               <Move RelativeTo="LayoutChange" Y="1" Duration="0.8" Easing="ElasticIn" />
+                           </LayoutAnimation>
+
+                           <AddingAnimation>
+                               <Move RelativeTo="Size" X="1" Duration="0.3" Easing="CircularIn" />
+                           </AddingAnimation>
+
+                           <RemovingAnimation>
+                               <Move RelativeTo="Size" X="-1" Duration="0.4" Easing="CircularOut" />
+                           </RemovingAnimation>
+                       </DockPanel>
+                   </Each>
+               </StackPanel>
+           </ScrollView>
+
+
                </DockPanel>
 
             </Page>
