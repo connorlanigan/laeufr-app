@@ -1,4 +1,5 @@
 <App>
+
   <Router ux:Name="router" />
      <Navigator DefaultPath="login">
          <LoginPage ux:Template="login" router="router" />

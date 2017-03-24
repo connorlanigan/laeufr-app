@@ -5,27 +5,74 @@ var distance_m = Observable(0);
 var totalSeconds = Observable(0);
 var run_active = true;
 var lastLocation = {lat : 0.0, lon:0.0};
+var duration_value = Observable("0000");
+var distance_value = Observable("0000");
+var distance_type =Observable("METER");
+var duration_type = Observable("SECONDS");
+var FileSystem = require("FuseJS/FileSystem");
+
+var audioplayer = Observable(true);
+var audioplayer_file = Observable("Assets/sounds/start_your_run.wav");
+
+function playSound(path)
+{
+
+  audioplayer.value = true;
+  audioplayer_file.value = path;
+  audioplayer.value = false;
+}
+
+
 
 
    // Immediate
-   var immediateLocation = JSON.stringify(GeoLocation.location);
-
-
+ var immediateLocation = JSON.stringify(GeoLocation.location);
  var running_timer =   Timer.create(function() {
+
+
 
 if(run_active)
 totalSeconds.value += 1;
 
-     GeoLocation.getLocation(3000).then(function(location) {
+
+if(totalSeconds.value < 60) //seconds
+{
+
+
+duration_value.value =   formatNum(totalSeconds.value,4);
+duration_type.value ="SECONDS";
+}
+else if(totalSeconds.value >= 60) //minutes
+{
+
+
+var seconds = secondsToTime(totalSeconds.value).s;
+var minutes = secondsToTime(totalSeconds.value).m;
+
+
+duration_value.value = formatNum(minutes,2)+":"+formatNum(seconds,2);
+duration_type.value =" MINUTES";
+}
+else //Hours
+{
+duration_value.value = totalSeconds.value/60;
+duration_type.value ="HOURS";
+}
+
+
+GeoLocation.getLocation(3000).then(function(location) {
 
 if(lastLocation.lat > 0)
 {
   distance_m.value += (calcCrow(lastLocation.lat, lastLocation.lon, location.latitude, location.longitude)*1000);
-  console.log(distance_m);
+//  console.log(distance_m);
 }
 
 lastLocation.lat = location.latitude;
 lastLocation.lon = location.longitude;
+
+
+
 
 
      }).catch(function(fail) {
@@ -33,7 +80,7 @@ lastLocation.lon = location.longitude;
      });
 
 
-   }, 1000,true);
+   }, 1000,run_active);
 
 
 
@@ -47,11 +94,15 @@ lastLocation.lon = location.longitude;
    var continuousLocation = GeoLocation.observe("changed").map(JSON.stringify);
 
    function startContinuousListener() {
+
+      playSound("Assets/sounds/start_your_run.wav");
+
        var intervalMs = 1000;
        var desiredAccuracyInMeters = 10;
        GeoLocation.startListening(intervalMs, desiredAccuracyInMeters);
-
    }
+
+
 
    function stopContinuousListener() {
        GeoLocation.stopListening();
@@ -61,9 +112,31 @@ lastLocation.lon = location.longitude;
  var finishrun = function()
  {
        stopContinuousListener();
-       running_timer.stop();
+       audioplayer.value = false;
        run_active = false;
+
+
+       addRun({"distance" : distance_m.value, "totalseconds" : totalSeconds.value});
        router.goto("dashboard");
+ }
+
+ function secondsToTime(secs)
+ {
+     secs = Math.round(secs);
+     var hours = Math.floor(secs / (60 * 60));
+
+     var divisor_for_minutes = secs % (60 * 60);
+     var minutes = Math.floor(divisor_for_minutes / 60);
+
+     var divisor_for_seconds = divisor_for_minutes % 60;
+     var seconds = Math.ceil(divisor_for_seconds);
+
+     var obj = {
+         "h": hours,
+         "m": minutes,
+         "s": seconds
+     };
+     return obj;
  }
 
 
@@ -89,6 +162,26 @@ lastLocation.lon = location.longitude;
        return Value * Math.PI / 180;
    }
 
+   var runs = [];
+
+
+   function addRun(run)
+   {
+     runs.push(run);
+   }
+
+   function formatNum(num,letters)
+   {
+    var missing_nums = letters-num.toString().length;
+    var beforeString = "";
+
+    for(var i = 0;i<missing_nums;i++)
+     beforeString += "0";
+
+   return beforeString+num;
+   }
+
+
 
  module.exports = {
      immediateLocation: immediateLocation,
@@ -98,5 +191,11 @@ lastLocation.lon = location.longitude;
      startContinuousListener: startContinuousListener,
      totalSeconds :  totalSeconds,
      stopContinuousListener: stopContinuousListener,
-     finishrun: finishrun
+     finishrun: finishrun,
+     distance_type : distance_type,
+     duration_type : duration_type,
+     distance_value : distance_value,
+    duration_value : duration_value,
+    audioplayer : audioplayer,
+    audioplayer_file : audioplayer_file
  };

@@ -26,16 +26,16 @@ signing in and create an account later..
 
 </Text>
 
-<Rectangle Fill="#003366"  Margin="40,10,40,10" Padding="10" Height="80px" CornerRadius="4">
-  <Tapped>
+<Rectangle Fill="#003366"  Margin="40,10,40,10" Padding="10" Height="40" CornerRadius="4">
+  <Pressed>
     <Scale Factor="0.8" Duration="0.3" Easing="QuadraticInOut"/>
-</Tapped>
+</Pressed>
   <Image File ="../Assets/facebook.png" Alignment="Left"/>
   <Text Color="White" TextAlignment="Center">Facebook</Text>
 
 </Rectangle>
 
-<Rectangle Fill="#3399ff"  Margin="40,10,40,10" Padding="10" Height="80px" CornerRadius="4">
+<Rectangle Fill="#3399ff"  Margin="40,10,40,10" Padding="10" Height="40" CornerRadius="4">
   <Tapped>
     <Scale Factor="0.8" Duration="0.3" Easing="QuadraticInOut"/>
 </Tapped>
@@ -46,7 +46,7 @@ signing in and create an account later..
   </Clicked>
 </Rectangle>
 
-<Rectangle  Fill="White"  Margin="40,10,40,10" Padding="10" Height="80px" CornerRadius="4">
+<Rectangle  Fill="White"  Margin="40,10,40,10" Padding="10" Height="40" CornerRadius="4">
   <Tapped>
     <Scale Factor="0.8" Duration="0.3" Easing="QuadraticInOut"/>
 </Tapped>

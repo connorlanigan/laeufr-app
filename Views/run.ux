@@ -3,16 +3,42 @@
 <Router ux:Dependency="router" />
 <Image File="../Assets/Background.png" Layer="Background" StretchMode="Fill" />
 
+<WhileTrue Value="{audioplayer}">
+<PlaySound File="{audioplayer_file}" />
+</WhileTrue>
 
+<StackPanel>
+
+<StackPanel Orientation ="Horizontal" Alignment ="Center">
 <StackPanel Margin ="30" Alignment ="Left">
-<Text Color="White" FontSize ="18" Value ="TOTAL DISTANCE"/>
-<Text Color="White" FontSize ="32" Alignment="Center" Value ="{distance_m}"/>
+<Text Color="White" FontSize ="15" Value ="DISTANCE"  Alignment="Center"/>
+<Text Color="White" FontSize ="28" Alignment="Center" Value ="{distance_value}" Margin ="4"/>
+<Text Color="White" FontSize ="15" Alignment="Center" Value ="{distance_type}"/>
 </StackPanel>
 
 <StackPanel Margin ="30" Alignment ="Right">
-<Text Color="White" FontSize ="18" Value ="TOTAL DURATION "/>
-<Text Color="White" FontSize ="32" Alignment="Center" Value ="{totalSeconds}"/>
+<Text Color="White" FontSize ="15" Value ="DURATION"  Alignment="Center"/>
+<Text Color="White" FontSize ="28" Alignment="Center" Value ="{duration_value}" Margin ="4"/>
+<Text Color="White" FontSize ="15" Alignment="Center" Value ="{duration_type}"/>
 </StackPanel>
+</StackPanel>
+
+<StackPanel Orientation ="Horizontal" Alignment ="Center">
+<StackPanel Margin ="30" Alignment ="Left">
+<Text Color="White" FontSize ="15" Value ="PACE"  Alignment="Center"/>
+<Text Color="White" FontSize ="28" Alignment="Center" Value ="{distance_value}" Margin ="4"/>
+<Text Color="White" FontSize ="15" Alignment="Center" Value ="1 KM"/>
+</StackPanel>
+
+<StackPanel Margin ="30" Alignment ="Right">
+<Text Color="White" FontSize ="15" Value ="KCAL"  Alignment="Center"/>
+<Text Color="White" FontSize ="28" Alignment="Center" Value ="{duration_value}" Margin ="4"/>
+<Text Color="White" FontSize ="15" Alignment="Center" Value ="BURNED"/>
+</StackPanel>
+</StackPanel>
+
+</StackPanel>
+
 
 
 

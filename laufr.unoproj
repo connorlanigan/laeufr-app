@@ -3,9 +3,11 @@
   "Packages": [
     "Fuse",
     "FuseJS",
-    "Fuse.GeoLocation"
+    "Fuse.GeoLocation",
+   "Fuse.Audio"
   ],
   "Includes": [
-    "*"
+    "*",
+    "Assets/sounds/*.wav:Bundle"
   ]
 }
