@@ -1,0 +1,6 @@
+<Page ux:Class ="ResultsPage">
+<Router ux:Dependency="router" />
+        <JavaScript File="../js/results.js" />
+
+
+</Page>

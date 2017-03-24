@@ -26,18 +26,32 @@
 <StackPanel Orientation ="Horizontal" Alignment ="Center">
 <StackPanel Margin ="30" Alignment ="Left">
 <Text Color="White" FontSize ="15" Value ="PACE"  Alignment="Center"/>
-<Text Color="White" FontSize ="28" Alignment="Center" Value ="{distance_value}" Margin ="4"/>
-<Text Color="White" FontSize ="15" Alignment="Center" Value ="1 KM"/>
+<Text Color="White" FontSize ="28" Alignment="Center" Value ="{pace_value}" Margin ="4"/>
+<Text Color="White" FontSize ="15" Alignment="Center" Value ="MIN / KM"/>
 </StackPanel>
 
 <StackPanel Margin ="30" Alignment ="Right">
 <Text Color="White" FontSize ="15" Value ="KCAL"  Alignment="Center"/>
-<Text Color="White" FontSize ="28" Alignment="Center" Value ="{duration_value}" Margin ="4"/>
+<Text Color="White" FontSize ="28" Alignment="Center" Value ="{kcal_value}" Margin ="4"/>
 <Text Color="White" FontSize ="15" Alignment="Center" Value ="BURNED"/>
 </StackPanel>
 </StackPanel>
 
+
+
+<StackPanel Orientation ="Horizontal" Alignment ="Center">
+<StackPanel Margin ="30" Alignment ="Left">
+<Text Color="White" FontSize ="15" Value ="SPEED"  Alignment="Center"/>
+<Text Color="White" FontSize ="28" Alignment="Center" Value ="{speed_value}" Margin ="4"/>
+<Text Color="White" FontSize ="15" Alignment="Center" Value ="KM/H"/>
 </StackPanel>
+
+
+</StackPanel>
+
+
+</StackPanel>
+
 
 
 

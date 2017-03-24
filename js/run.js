@@ -15,7 +15,7 @@ var distance_type =Observable("METER");
 var duration_type = Observable("SECONDS");
 var pace_value = Observable("0000");
 var kcal_value = Observable("0000");
-
+var speed_value = Observable("0000");
 
 
 var FileSystem = require("FuseJS/FileSystem");
@@ -23,10 +23,10 @@ var audioplayer = Observable(true);
 var audioplayer_file = Observable("Assets/sounds/start_your_run.wav");
 var start = new Date();
 var location_dots = [];
- var immediateLocation = JSON.stringify(GeoLocation.location);
- var timeoutLocation = Observable("");
- var timeoutMs = 1000;
- var continuousLocation = GeoLocation.observe("changed").map(JSON.stringify);
+var immediateLocation = JSON.stringify(GeoLocation.location);
+var timeoutLocation = Observable("");
+var timeoutMs = 1000;
+var continuousLocation = GeoLocation.observe("changed").map(JSON.stringify);
 
 
 //Generate a new GUID (used for run-ids)
@@ -57,6 +57,24 @@ totalSeconds.value += 1;
 var visual_seconds = secondsToTime(totalSeconds.value).s;
 var visual_minutes = secondsToTime(totalSeconds.value).m;
 
+if(distance_m.value >0)
+{
+pace_value.value = parseFloat(((totalSeconds.value/distance_m.value)*1000)/60).toFixed(2);
+speed_value.value = parseFloat(60/pace_value.value).toFixed(2);
+}
+
+if(distance_m.value < 1000)
+{
+  distance_value.value = formatNum(Math.round(distance_m.value),4);
+  distance_type.value = "METER";
+}
+else if(distance_m.value >= 1000)
+{
+  distance_value.value = parseFloat(distance_m.value/1000).toFixed(2);
+  distance_type.value = "KILOMETER";
+}
+
+
 if(totalSeconds.value < 60) //seconds
 {
 duration_value.value =   formatNum(visual_seconds,4);
@@ -74,7 +92,7 @@ duration_type.value ="HOURS";
 }
 
 //Get GEO-Location
-GeoLocation.getLocation(3000).then(function(location) {
+GeoLocation.getLocation(1000).then(function(location) {
 
 if(lastLocation.lat > 0)
 {
@@ -206,5 +224,6 @@ lastLocation.lon = location.longitude;
     audioplayer : audioplayer,
     audioplayer_file : audioplayer_file,
     pace_value: pace_value,
-    kcal_value : kcal_value
+    kcal_value : kcal_value,
+    speed_value : speed_value
  };
